@@ -1,0 +1,111 @@
+<div class="container" ng-controller="myCtrl" ng-init="getdata()" ng-app="myApp">
+		<div class="jumbotron">
+			<h3 class="text-center">Welcome !!!</h3>
+		</div>
+
+		<button class="btn btn-success btn-lg" data-target="#addmodal" data-toggle="modal" ng-click="newdata={}">Add User</button><br><hr>
+Enter subject: <input type = "text" ng-model = "searchText">
+<table class="table table-bordered">
+	<tr>
+		<th>S.No</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Address</th>
+		<th>Gender</th>
+		<th>City</th>
+		<th>Hobbies</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+
+<tr ng-repeat="x in alldata |filter:searchText">
+	<td ng-bind="$index+1"></td>
+	<td ng-bind="x.name"></td>
+	<td ng-bind="x.email"></td>
+	<td ng-bind="x.address"></td>
+	<td ng-bind="x.gender"></td>
+	<td ng-bind="x.city"></td>
+	<td ng-bind="x.hobbies"></td>
+
+	<td><button class="btn btn-primary" ng-click="askupdate(x)" data-toggle="modal" data-target="#addmodal">Edit</button> </td>
+
+	<td><button class="btn btn-danger" ng-click="askdel(x)" data-toggle="modal" data-target="#askdel">Delete</button> </td>
+</tr>
+</table>
+
+<div class="modal fade" id="askdel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="text-center">Delete User</h3>
+			</div>
+			<div class="modal-body">
+				<p>Do you really want to delete <b>{{selectedobj.name}}</b>???</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-danger" data-dismiss="modal" ng-click="delete()">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal fade" id="addmodal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h3 class="text-center">{{ newdata._id ? "Update" : "Add" }} User Details</h3>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+				<label>Name</label>
+				<input type="text" placeholder="name" class="form-control" ng-model="newdata.name">
+				</div>
+
+				<div class="form-group">
+				<label>Email</label>
+				<input type="email" placeholder="email" class="form-control" ng-model="newdata.email">
+				</div>
+
+				<div class="form-group">
+				<label>Address</label>
+				<textarea placeholder="address" class="form-control" ng-model="newdata.address"></textarea>
+				</div>
+
+				<div class="form-group">
+				<label>Gender</label>
+				<input type="radio" ng-model="newdata.gender" value="male" >Male
+				<input type="radio" ng-model="newdata.gender" value="female" >Female
+				</div>
+
+				<div class="form-group">
+				<label>City</label>
+				<select class="form-control" ng-model="newdata.city">
+					<option ng-repeat="x in names">{{x}}</option>
+					
+				</select>
+				</div>
+
+				<div class="form-group">
+				<label>Hobbies</label>
+				<input type="checkbox" value="dancing" ng-model="newdata.hobbies">Dancing
+				<input type="checkbox" value="travelling" ng-model="newdata.hobbies">Travelling
+				<input type="checkbox" value="music" ng-model="newdata.hobbies">Music
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-dismiss="modal" ng-click="add()"> {{ newdata._id ? "Update" : "ADD" }} </button>
+				<button class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+	</div>
